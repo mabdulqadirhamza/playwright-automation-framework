@@ -26,15 +26,12 @@ jobs:
       # UI AUTOMATION (POM_Automation)
       # ----------------------------------------------------------------
       - name: "[UI] Install Dependencies"
-        working-directory: ./POM_Automation
         run: npm ci
 
       - name: "[UI] Install Browsers"
-        working-directory: ./POM_Automation
         run: npx playwright install chromium --with-deps
 
       - name: "[UI] Run Tests"
-        working-directory: ./POM_Automation
         run: npx playwright test
         continue-on-error: true
 
@@ -53,7 +50,7 @@ jobs:
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
-          allure_results: POM_Automation/allure-results
+          allure_results: allure-results
           gh_pages: gh-pages-history
           allure_report: allure-report-ui
           allure_history: allure-history-ui
