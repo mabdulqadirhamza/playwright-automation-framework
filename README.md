@@ -181,7 +181,8 @@ I'm a QA Engineer passionate about building robust, maintainable test automation
 - Clean code practices
 - Modern testing tools and frameworks
 
-**Connect with me**: [https://github.com/mabdulqadirhamza]
+[![GitHub](https://img.shields.io/badge/GitHub-mabdulqadirhamza-181717?style=for-the-badge&logo=github)](https://github.com/mabdulqadirhamza)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mabdulqadirhamza/)
 
 ---
 
