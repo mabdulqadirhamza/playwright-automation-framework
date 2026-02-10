@@ -1,0 +1,78 @@
+name: Automation Suite with Continuous Integration and GitHub Pages Deployment
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ui-test-and-deploy:
+    runs-on: ubuntu-latest # Back to Cloud (Linux) - No laptop runner needed
+    timeout-minutes: 60
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      # ----------------------------------------------------------------
+      # UI AUTOMATION (POM_Automation)
+      # ----------------------------------------------------------------
+      - name: "[UI] Install Dependencies"
+        working-directory: ./POM_Automation
+        run: npm ci
+
+      - name: "[UI] Install Browsers"
+        working-directory: ./POM_Automation
+        run: npx playwright install chromium --with-deps
+
+      - name: "[UI] Run Tests"
+        working-directory: ./POM_Automation
+        run: npx playwright test
+        continue-on-error: true
+
+      # ----------------------------------------------------------------
+      # REPORT GENERATION
+      # ----------------------------------------------------------------
+      - name: Get Previous History (gh-pages)
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages-history
+
+      - name: Generate UI Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: POM_Automation/allure-results
+          gh_pages: gh-pages-history
+          allure_report: allure-report-ui
+          allure_history: allure-history-ui
+          keep_reports: 20
+
+      # ----------------------------------------------------------------
+      # DEPLOY TO GITHUB PAGES
+      # ----------------------------------------------------------------
+      - name: Prepare Site Structure
+        if: always()
+        run: |
+          mkdir -p _site
+          # Copy UI Report to Root (Standard Linux commands work here)
+          if [ -d "allure-history-ui" ]; then cp -r allure-history-ui/* _site/; fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: _site
