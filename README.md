@@ -26,8 +26,8 @@ What makes this framework special:
 
 ```bash
 # Clone the repository
-git clone https://github.com/mabdulqadirhamza/demoQA-automation-framework.git
-cd YOUR_REPO
+git clone https://github.com/mabdulqadirhamza/playwright-automation-framework.git
+cd playwright-automation-framework
 
 # Install dependencies
 npm install
