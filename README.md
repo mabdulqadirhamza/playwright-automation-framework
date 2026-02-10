@@ -1,6 +1,6 @@
 # 🎯 DemoQA Automation Framework with Playwright
 
-[![UI Automation Suite (UI Only)](https://github.com/mabdulqadirhamza/demoQA-automation-framework/actions/workflows/ui-automation.yml/badge.svg)](https://github.com/mabdulqadirhamza/demoQA-automation-framework/actions)
+
 [![Playwright](https://img.shields.io/badge/Playwright-1.57.0-45ba4b?logo=playwright)](https://playwright.dev/)
 [![Allure Report](https://img.shields.io/badge/Allure_Report-Click_Here-6b5b95)](https://mabdulqadirhamza.github.io/demoQA-automation-framework/)
 
